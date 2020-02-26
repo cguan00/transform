@@ -11,3 +11,4 @@ transform = new_matrix()
 # parse_file( 'script', edges, transform, screen, color )
 
 make_translate(4, 5, 6)
+make_scale(2,3,4)

@@ -16,6 +16,7 @@ def make_translate( x, y, z ):
     matrix[3][1] = y
     matrix[3][2] = z
     print_matrix(matrix)
+    return matrix
 
 def make_scale( x, y, z ):
     matrix = new_matrix()
@@ -23,6 +24,8 @@ def make_scale( x, y, z ):
     matrix[1][1] = y
     matrix[2][2] = z
     matrix[3][3] = 1
+    print_matrix(matrix)
+    return matrix
 
 def make_rotX( theta ):
     pass
