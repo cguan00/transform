@@ -15,7 +15,7 @@ def make_translate( x, y, z ):
     matrix[3][0] = x
     matrix[3][1] = y
     matrix[3][2] = z
-    print_matrix(matrix)
+    # print_matrix(matrix)
     return matrix
 
 def make_scale( x, y, z ):
@@ -24,17 +24,41 @@ def make_scale( x, y, z ):
     matrix[1][1] = y
     matrix[2][2] = z
     matrix[3][3] = 1
-    print_matrix(matrix)
+    # print_matrix(matrix)
     return matrix
 
 def make_rotX( theta ):
-    pass
+    theta = theta * math.pi / 180
+    matrix = new_matrix()
+    ident(matrix)
+    matrix[1][1] = math.cos(theta)
+    matrix[1][2] = -1 * math.sin(theta)
+    matrix[2][1] = math.sin(theta)
+    matrix[2][2] = math.cos(theta)
+    # print_matrix(matrix)
+    return matrix
 
 def make_rotY( theta ):
-    pass
+    theta = theta * math.pi / 180
+    matrix = new_matrix()
+    ident(matrix)
+    matrix[0][0] = math.cos(theta)
+    matrix[0][2] = math.sin(theta)
+    matrix[2][0] = -1 * math.sin(theta)
+    matrix[2][2] = math.cos(theta)
+    # print_matrix(matrix)
+    return matrix
 
 def make_rotZ( theta ):
-    pass
+    theta = theta * math.pi / 180
+    matrix = new_matrix()
+    ident(matrix)
+    matrix[0][0] = math.cos(theta)
+    matrix[0][1] = -1 * math.sin(theta)
+    matrix[1][0] = math.sin(theta)
+    matrix[1][1] = math.cos(theta)
+    # print_matrix(matrix)
+    return matrix
 
 #print the matrix such that it looks like
 #the template in the top comment

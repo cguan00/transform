@@ -12,3 +12,6 @@ transform = new_matrix()
 
 make_translate(4, 5, 6)
 make_scale(2,3,4)
+# make_rotZ(0)
+# make_rotY(180)
+make_rotX(180)
