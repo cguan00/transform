@@ -32,5 +32,19 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-def parse_file( fname, points, transform, screen, color ):
-    pass
+# def parse_file( fname, points, transform, screen, color ):
+def parse_file( fname ):
+    f = open(fname, "r")
+    # print f.read()
+
+    lines = f.readlines()
+
+    # print(lines)
+
+    #to remove the "\n" at the end of each line
+    for i in range(len(lines)):
+        lines[i] = lines[i][:-1]
+
+    print(lines)
+
+    for i in range(len())
