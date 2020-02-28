@@ -8,7 +8,7 @@ color = [ 0, 255, 0 ]
 edges = []
 transform = new_matrix()
 
-# parse_file( 'script', edges, transform, screen, color )
+parse_file( 'script', edges, transform, screen, color )
 
 # make_translate(4, 5, 6)
 # make_scale(2,3,4)
@@ -16,5 +16,4 @@ transform = new_matrix()
 # make_rotY(180)
 # make_rotX(180)
 
-
-parse_file( "script" )
+print(edges)

@@ -32,8 +32,8 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-# def parse_file( fname, points, transform, screen, color ):
-def parse_file( fname ):
+def parse_file( fname, points, transform, screen, color ):
+    matrix = new_matrix();
     f = open(fname, "r")
     # print f.read()
 
@@ -47,4 +47,29 @@ def parse_file( fname ):
 
     print(lines)
 
-    for i in range(len())
+    for i in range(len(lines)):
+        if lines[i] == "line":
+            coords = lines[i + 1].split(" ")
+            x0 = coords[0]
+            y0 = coords[1]
+            z0 = coords[2]
+            x1 = coords[3]
+            y1 = coords[4]
+            z1 = coords[5]
+
+            edge = [x0, y0, z0, x1, y1, z1]
+
+            points.append(edge)
+
+        if lines[i] == "ident":
+            ident(matrix)
+
+        if lines[i] == "scale":
+            sFactors = lines[i + 1].split(" ")
+            sMatrix = make_scale(sFactors[0], sFactors[1], sFactors[2])
+            matrix_mult(sMatrix, matrix)
+
+        if lines[i] == "translate":
+            tFactors = lines[i + 1].split(" ")
+            tMatrix = make_translate(tFactors[0], tFactors[1], tFactors[2])
+            matrix_mult(tMatrix, matrix)
