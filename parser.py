@@ -33,7 +33,9 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
-    matrix = new_matrix();
+    matrix = new_matrix()
+
+    transformationMatrix = new_matrix()
     f = open(fname, "r")
     # print f.read()
 
@@ -50,6 +52,8 @@ def parse_file( fname, points, transform, screen, color ):
     for i in range(len(lines)):
         if lines[i] == "line":
             coords = lines[i + 1].split(" ")
+            for j in range(len(coords)):
+                coords[j] = int(coords[j])
             x0 = coords[0]
             y0 = coords[1]
             z0 = coords[2]
@@ -59,17 +63,38 @@ def parse_file( fname, points, transform, screen, color ):
 
             edge = [x0, y0, z0, x1, y1, z1]
 
-            points.append(edge)
 
         if lines[i] == "ident":
-            ident(matrix)
+            ident(transformationMatrix)
 
         if lines[i] == "scale":
-            sFactors = lines[i + 1].split(" ")
-            sMatrix = make_scale(sFactors[0], sFactors[1], sFactors[2])
-            matrix_mult(sMatrix, matrix)
+            sArgs = lines[i + 1].split(" ")
+            for j in range(len(sArgs)):
+                sArgs[j] = int(sArgs[j])
+            sMatrix = make_scale(sArgs[0], sArgs[1], sArgs[2])
+            matrix_mult(sMatrix, transformationMatrix)
 
         if lines[i] == "translate":
-            tFactors = lines[i + 1].split(" ")
-            tMatrix = make_translate(tFactors[0], tFactors[1], tFactors[2])
-            matrix_mult(tMatrix, matrix)
+            tArgs = lines[i + 1].split(" ")
+            for j in range(len(tArgs)):
+                tArgs[j] = int(tArgs[j])
+            tMatrix = make_translate(tArgs[0], tArgs[1], tArgs[2])
+            matrix_mult(tMatrix, transformationMatrix)
+
+        if lines[i] == "rotate":
+            rArgs = lines[i + 1].split(" ")
+            axis = rArgs[0]
+            theta = int(rArgs[1])
+            rMatrix = []
+
+            if axis == "x":
+                rMatrix = make_rotX(theta)
+            if axis == "y":
+                rMatrix = make_rotY(theta)
+            if axis == "z":
+                rMatrix = make_rotZ(theta)
+
+            matrix_mult(rMatrix, transformationMatrix)
+
+        if lines[i] == "apply":
+            matrix_mult(transformationMatrix, matrix)
