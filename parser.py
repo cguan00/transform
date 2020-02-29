@@ -14,7 +14,7 @@ The file follows the following format:
          scale: create a scale matrix,
                 then multiply the transform matrix by the scale matrix -
                 takes 3 arguments (sx, sy, sz)
-         translate: create a translation matrix,
+         move: create a translation matrix,
                     then multiply the transform matrix by the translation matrix -
                     takes 3 arguments (tx, ty, tz)
          rotate: create a rotation matrix,
@@ -74,7 +74,7 @@ def parse_file( fname, points, transform, screen, color ):
             sMatrix = make_scale(sArgs[0], sArgs[1], sArgs[2])
             matrix_mult(sMatrix, transformationMatrix)
 
-        if lines[i] == "translate":
+        if lines[i] == "move":
             tArgs = lines[i + 1].split(" ")
             for j in range(len(tArgs)):
                 tArgs[j] = int(tArgs[j])
@@ -98,3 +98,38 @@ def parse_file( fname, points, transform, screen, color ):
 
         if lines[i] == "apply":
             matrix_mult(transformationMatrix, matrix)
+
+        if lines[i] == "display":
+            #clear the screen
+            for y in range( height ):
+                row = []
+                screen.append( row )
+                for x in range( width ):
+                    screen[y].append( DEFAULT_COLOR[:] )
+
+            #draw the lines of the edge matrix to the screen
+            for edge in matrix:
+                draw_lines( matrix, screen, color )
+
+            #display the screen
+            display(screen)
+
+        if lines[i] == "save":
+            fileName = lines[i + 1]
+
+            #clear the screen
+            for y in range( height ):
+                row = []
+                screen.append( row )
+                for x in range( width ):
+                    screen[y].append( DEFAULT_COLOR[:] )
+
+            #draw the lines of the edge matrix to the screen
+            for edge in matrix:
+                draw_lines( matrix, screen, color )
+
+            # save the screen to a file
+            save_extension( screen, fileName )
+
+        if lines[i] == "quit":
+            break
