@@ -47,88 +47,66 @@ def parse_file( fname, points, transform, screen, color ):
     for i in range(len(lines)):
         lines[i] = lines[i][:-1]
 
-    print(lines)
+    # print(lines)
 
     for i in range(len(lines)):
         if lines[i] == "line":
             coords = lines[i + 1].split(" ")
-            for j in range(len(coords)):
-                coords[j] = int(coords[j])
-            x0 = coords[0]
-            y0 = coords[1]
-            z0 = coords[2]
-            x1 = coords[3]
-            y1 = coords[4]
-            z1 = coords[5]
+            x0 = int(coords[0])
+            y0 = int(coords[1])
+            z0 = int(coords[2])
+            x1 = int(coords[3])
+            y1 = int(coords[4])
+            z1 = int(coords[5])
 
-            edge = [x0, y0, z0, x1, y1, z1]
+            # print(str(x0))
+
+            add_edge(matrix, x0, y0, z0, x1, y1, z1)
 
 
-        if lines[i] == "ident":
-            ident(transformationMatrix)
+        elif lines[i] == "ident":
+            ident(transform)
 
-        if lines[i] == "scale":
+        elif lines[i] == "scale":
             sArgs = lines[i + 1].split(" ")
             for j in range(len(sArgs)):
                 sArgs[j] = int(sArgs[j])
-            sMatrix = make_scale(sArgs[0], sArgs[1], sArgs[2])
-            matrix_mult(sMatrix, transformationMatrix)
+            sMatrix = make_scale(int(sArgs[0]), int(sArgs[1]), int(sArgs[2]))
+            matrix_mult(sMatrix, transform)
 
-        if lines[i] == "move":
+        elif lines[i] == "move":
             tArgs = lines[i + 1].split(" ")
             for j in range(len(tArgs)):
                 tArgs[j] = int(tArgs[j])
-            tMatrix = make_translate(tArgs[0], tArgs[1], tArgs[2])
-            matrix_mult(tMatrix, transformationMatrix)
+            tMatrix = make_translate(int(tArgs[0]), int(tArgs[1]), int(tArgs[2]))
+            matrix_mult(tMatrix, transform)
 
-        if lines[i] == "rotate":
+        elif lines[i] == "rotate":
             rArgs = lines[i + 1].split(" ")
             axis = rArgs[0]
             theta = int(rArgs[1])
-            rMatrix = []
 
             if axis == "x":
                 rMatrix = make_rotX(theta)
-            if axis == "y":
+            elif axis == "y":
                 rMatrix = make_rotY(theta)
-            if axis == "z":
+            elif axis == "z":
                 rMatrix = make_rotZ(theta)
 
-            matrix_mult(rMatrix, transformationMatrix)
+            matrix_mult(rMatrix, transform)
 
-        if lines[i] == "apply":
-            matrix_mult(transformationMatrix, matrix)
+        elif lines[i] == "apply":
+            matrix_mult(transform, matrix)
 
-        if lines[i] == "display":
-            #clear the screen
-            for y in range( height ):
-                row = []
-                screen.append( row )
-                for x in range( width ):
-                    screen[y].append( DEFAULT_COLOR[:] )
-
-            #draw the lines of the edge matrix to the screen
-            for edge in matrix:
-                draw_lines( matrix, screen, color )
-
-            #display the screen
+        elif lines[i] == "display":
+            clear_screen(screen)
+            draw_lines(matrix, screen, color)
             display(screen)
 
-        if lines[i] == "save":
+        elif lines[i] == "save":
             fileName = lines[i + 1]
-
-            #clear the screen
-            for y in range( height ):
-                row = []
-                screen.append( row )
-                for x in range( width ):
-                    screen[y].append( DEFAULT_COLOR[:] )
-
-            #draw the lines of the edge matrix to the screen
-            for edge in matrix:
-                draw_lines( matrix, screen, color )
-
-            # save the screen to a file
+            clear_screen(screen)
+            draw_lines(matrix, screen, color)
             save_extension( screen, fileName )
 
         if lines[i] == "quit":

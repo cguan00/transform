@@ -28,35 +28,35 @@ def make_scale( x, y, z ):
     return matrix
 
 def make_rotX( theta ):
-    theta = theta * math.pi / 180
+    rads = math.radians(theta)
     matrix = new_matrix()
     ident(matrix)
-    matrix[1][1] = math.cos(theta)
-    matrix[1][2] = -1 * math.sin(theta)
-    matrix[2][1] = math.sin(theta)
-    matrix[2][2] = math.cos(theta)
+    matrix[1][1] = math.cos(rads)
+    matrix[2][1] = -1 * math.sin(rads)
+    matrix[1][2] = math.sin(rads)
+    matrix[2][2] = math.cos(rads)
     # print_matrix(matrix)
     return matrix
 
 def make_rotY( theta ):
-    theta = theta * math.pi / 180
+    rads = math.radians(theta)
     matrix = new_matrix()
     ident(matrix)
-    matrix[0][0] = math.cos(theta)
-    matrix[0][2] = math.sin(theta)
-    matrix[2][0] = -1 * math.sin(theta)
-    matrix[2][2] = math.cos(theta)
+    matrix[0][0] = math.cos(rads)
+    matrix[2][0] = math.sin(rads)
+    matrix[0][2] = -1 * math.sin(rads)
+    matrix[2][2] = math.cos(rads)
     # print_matrix(matrix)
     return matrix
 
 def make_rotZ( theta ):
-    theta = theta * math.pi / 180
+    rads = math.radians(theta)
     matrix = new_matrix()
     ident(matrix)
-    matrix[0][0] = math.cos(theta)
-    matrix[0][1] = -1 * math.sin(theta)
-    matrix[1][0] = math.sin(theta)
-    matrix[1][1] = math.cos(theta)
+    matrix[0][0] = math.cos(rads)
+    matrix[1][0] = -1 * math.sin(rads)
+    matrix[0][1] = math.sin(rads)
+    matrix[1][1] = math.cos(rads)
     # print_matrix(matrix)
     return matrix
 

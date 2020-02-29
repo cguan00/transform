@@ -14,6 +14,6 @@ parse_file( 'script', edges, transform, screen, color )
 # make_scale(2,3,4)
 # make_rotZ(0)
 # make_rotY(180)
-# make_rotX(180)
+# make_rotX(20)
 
-print(edges)
+# print(edges)
