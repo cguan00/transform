@@ -64,46 +64,46 @@ def parse_file( fname, points, transform, screen, color ):
             add_edge(matrix, x0, y0, z0, x1, y1, z1)
 
 
-        elif lines[i] == "ident":
+        if lines[i] == "ident":
             ident(transform)
 
-        elif lines[i] == "scale":
+        if lines[i] == "scale":
             sArgs = lines[i + 1].split(" ")
             for j in range(len(sArgs)):
                 sArgs[j] = int(sArgs[j])
             sMatrix = make_scale(int(sArgs[0]), int(sArgs[1]), int(sArgs[2]))
             matrix_mult(sMatrix, transform)
 
-        elif lines[i] == "move":
+        if lines[i] == "move":
             tArgs = lines[i + 1].split(" ")
             for j in range(len(tArgs)):
                 tArgs[j] = int(tArgs[j])
             tMatrix = make_translate(int(tArgs[0]), int(tArgs[1]), int(tArgs[2]))
             matrix_mult(tMatrix, transform)
 
-        elif lines[i] == "rotate":
+        if lines[i] == "rotate":
             rArgs = lines[i + 1].split(" ")
             axis = rArgs[0]
             theta = int(rArgs[1])
 
             if axis == "x":
                 rMatrix = make_rotX(theta)
-            elif axis == "y":
+            if axis == "y":
                 rMatrix = make_rotY(theta)
-            elif axis == "z":
+            if axis == "z":
                 rMatrix = make_rotZ(theta)
 
             matrix_mult(rMatrix, transform)
 
-        elif lines[i] == "apply":
+        if lines[i] == "apply":
             matrix_mult(transform, matrix)
 
-        elif lines[i] == "display":
+        if lines[i] == "display":
             clear_screen(screen)
             draw_lines(matrix, screen, color)
             display(screen)
 
-        elif lines[i] == "save":
+        if lines[i] == "save":
             fileName = lines[i + 1]
             clear_screen(screen)
             draw_lines(matrix, screen, color)
